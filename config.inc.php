@@ -1,12 +1,12 @@
 <?php
 //database server
-define('DB_SERVER', "");
+define('DB_SERVER', "localhost");
 //database login name
-define('DB_USER', "");
+define('DB_USER', "root");
 //database login password
 define('DB_PASS', "");
 //database name
-define('DB_DATABASE', "");
+define('DB_DATABASE', "geriatria");
 //directorio
 define("APPDIR",dirname(__FILE__));
 ?>

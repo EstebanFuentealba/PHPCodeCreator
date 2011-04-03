@@ -62,7 +62,7 @@ class PHPClassCreator {
         $dir_files = $this->dir_tree(APPDIR . "/files");
         foreach ($dir_files as $dir_file) {
             if (is_file($dir_file)) {
-                $dir = explode(APPDIR . "/files", $dir_file);
+                $dir = explode(APPDIR . "/files/", $dir_file);
 //Otra forma de comprecion nativa de php si existe test,zip
 //                if ($zip->open('test.zip') === TRUE) {
 //                    $zip->addFile($dir_file, $dir[1]);
@@ -523,7 +523,7 @@ class PHPClassCreator {
             if ($this->debug) {
                 echo $ModelPHPCode;
             } else {
-                $zipfile->add_file($ModelPHPCode, "ci/app/models/" . $v['class']['name'] . ".php");
+                $zipfile->add_file($ModelPHPCode, "ci/app/modules/RestServer/models/" . $v['class']['name'] . ".php");
             }
 ## FIN CLASS MODEL
 ## CONTROLLER MODEL
@@ -562,7 +562,7 @@ class PHPClassCreator {
             if ($this->debug) {
                 echo $ControllerPHPCode;
             } else {
-                $zipfile->add_file($ControllerPHPCode, "app/modules/RestServer/models/" . $v['class']['name'] . "Controller.php");
+                $zipfile->add_file($ControllerPHPCode, "app/controllers/" . $v['class']['name'] . "Controller.php");
             }
         }
         if (!$this->debug) {
