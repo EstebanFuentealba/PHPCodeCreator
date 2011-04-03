@@ -251,8 +251,6 @@ class PHPClassCreator {
                 }
                 $MgetAll->addData('$q = '.$joinText.'->limit($limit)->offset($offset);');
                 $MgetAll->addData('if($sortname && $sortorder){ $q->order_by($sortname, $sortorder); }');
-
-                //$MgetAll->addData("$"."q = Doctrine_Query::create()->select('*')->from('".$table->name_table."')->limit($"."limit)->offset($"."offset);");
                 $MgetAll->addData("if($"."colName && $"."condition && $"."compare) {");
                         $MgetAll->addData("\t$"."fullCondition = $"."this->getConditionByName($"."condition,$"."colName,$"."compare);");
                         $MgetAll->addData("\tif($"."fullCondition) {");
