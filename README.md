@@ -14,4 +14,4 @@ File: <b>ci/config/database.php</b><br>
 <b>How to use:</b><br><br>
 Example:<br>
 <a href="#">http://pi/PHPCodeCreator/public_html/Tbl_encuestaController/tblsEncuestas.json?limit=1&colName=ID_ENCUESTA</a><br>
-<URL Project> / <b>Controllers</b> / <b>Function</b> . <b>Type</b> ? <b>Params</b>
+ <b>URL Project</b> / <b>Controllers</b> / <b>Function</b> . <b>Type</b> ? <b>Params</b>
