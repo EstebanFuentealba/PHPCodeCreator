@@ -140,7 +140,7 @@ class PHPClassCreator {
         $method->addData("}");
         $class->addMethod($method);
 //echo $class;
-        $zipfile->add_file($class->__toString(), "ci/app/controllers/KoalaController.class.php");
+        $zipfile->add_file($class->__toString(), "ci/app/modules/RestServer/controllers/KoalaController.class.php");
 
 
         foreach ($tables as $table) {
@@ -262,7 +262,7 @@ class PHPClassCreator {
             $MgetAll->addData("}");
             $Ccontroller->addMethod($MgetAll);
 
-            $zipfile->add_file($Ccontroller->__toString(), "ci/app/controllers/" . $className . "Controller.php");
+            $zipfile->add_file($Ccontroller->__toString(), "ci/app/modules/RestServer/controllers/" . $className . "Controller.php");
 //echo $Ccontroller;
 
             /*
@@ -334,7 +334,7 @@ class PHPClassCreator {
             }
             $class->addMethod($setUp);
 //echo $class->__toString();
-            $zipfile->add_file($class->__toString(), "ci/app/models/" . $className . ".php");
+            $zipfile->add_file($class->__toString(), "ci/app/modules/RestServer/models/" . $className . ".php");
         }
         header("Content-type: application/octet-stream");
         header("Content-disposition: attachment; filename=PHPClassCreator-" . time() . ".zip");
@@ -524,7 +524,7 @@ class PHPClassCreator {
             if ($this->debug) {
                 echo $ControllerPHPCode;
             } else {
-                $zipfile->add_file($ControllerPHPCode, "system/application/models/" . $v['class']['name'] . "Controller.php");
+                $zipfile->add_file($ControllerPHPCode, "app/modules/RestServer/models/" . $v['class']['name'] . "Controller.php");
             }
         }
         if (!$this->debug) {
