@@ -91,10 +91,10 @@ class PHPClassCreator {
 //	METHOD flush
 //#####
         $method = new PHPCodeMethod("flush", array(), 1);
-        $method->addData("$" . "manager = Doctrine_Manager::getInstance();");
-        $method->addData("$" . "manager->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);");
-        $method->addData("$" . "conn = Doctrine_Manager::connection();");
-        $method->addData("$" . "conn->flush();");
+        $method->addData('$manager = Doctrine_Manager::getInstance();');
+        $method->addData('$manager->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);');
+        $method->addData('$conn = Doctrine_Manager::connection();');
+        $method->addData('$conn->flush();');
         $class->addMethod($method);
 //#####
 //	METHOD __isType
@@ -166,27 +166,33 @@ class PHPClassCreator {
 //	METHOD "add".$table->GetUnionName()."_post"
 //#####
             $Magregar = new PHPCodeMethod($table->GetUnionName() . "_post", array(), 1);
-            $Magregar->addData("$" . "args = @$" . "this->post();");
-            $Magregar->addData("if(is_array($" . "args)) {");
+            $Magregar->addData('$args = @$this->post();');
+            $Magregar->addData('if(is_array($" . "args)) {');
             $Magregar->addData("\ttry {");
-            $Magregar->addData("\t\t$" . "o = new " . $className . "();");
-            $Magregar->addData("\t\tforeach($" . "args as $" . "key => $" . "val) {");
-            $Magregar->addData("\t\t\t$" . "exists = @$" . "o->columns[$" . "key];");
-            $Magregar->addData("\t\t\tif($" . "exists) { $" . "o->$" . "key = $" . "val; }");
-            $Magregar->addData("\t\t}");
-            $Magregar->addData("\t\t$" . "o->save();");
-            $Magregar->addData("\t\t$" . "this->response(array('status' => 200,'message' => 'added'), 200);");
-            $Magregar->addData("\t} catch(Doctrine_Validator_Exception $" . "e) {");
-            $Magregar->addData("\t\t$" . "records = $" . "e->getInvalidRecords();");
-            $Magregar->addData("\t\t$" . "errors = $" . "records[0]->getErrorStack();");
-            $Magregar->addData("\t\tforeach($" . "errors as $" . "k => $" . "v) {");
-            $Magregar->addData("\t\t\t$" . "err[] = array('name'=>$" . "k, 'validate'=>$" . "v[0]);");
-            $Magregar->addData("\t\t}");
-            $Magregar->addData("\t\t$" . "this->response(array('status' => 0,'error' => array('validates' => $" . "err)), 200);");
-            $Magregar->addData("\t} catch(Exception $" . "e) {");
-            $Magregar->addData("\t\t$" . "this->response(array('status' => $" . "e->getCode(),'error' => array('message' => $" . "e->getMessage())), 200);");
-            $Magregar->addData("\t}");
-            $Magregar->addData("}");
+                //Insert or Update
+                $Magregar->addData('if($args["action"]=="update"){');
+                    $Magregar->addData('$o = Doctrine::getTable("'.$className.'")->find($args["'.$pks[0].'"]);');
+                $Magregar->addData('} else {');
+                    $Magregar->addData('$o = new '.$className.'();');
+                $Magregar->addData('}');
+                //
+                $Magregar->addData("\t\tforeach($"."args as $"."key => $"."val) {");
+                    $Magregar->addData("\t\t\t$"."exists = @$"."o->columns[$"."key];");
+                    $Magregar->addData("\t\t\t".'if($exists) { $o->$key = (($exists=="datetime")? date("Y-m-d",strtotime($val)) :$val); }');
+                $Magregar->addData("\t\t}");
+                $Magregar->addData("\t\t$"."o->save();");
+                $Magregar->addData("\t\t$"."this->response(array('status' => 200,'message' => 'added'), 200);");
+                $Magregar->addData("\t} catch(Doctrine_Validator_Exception $"."e) {");
+                $Magregar->addData("\t\t$"."records = $"."e->getInvalidRecords();");
+                $Magregar->addData("\t\t$"."errors = $"."records[0]->getErrorStack();");
+                $Magregar->addData("\t\tforeach($"."errors as $"."k => $"."v) {");
+                    $Magregar->addData("\t\t\t$"."err[] = array('name'=>$"."k, 'validate'=>$"."v[0]);");
+                $Magregar->addData("\t\t}");
+                $Magregar->addData("\t\t$"."this->response(array('status' => 0,'error' => array('validates' => $"."err)), 200);");
+                $Magregar->addData("\t} catch(Exception $"."e) {");
+                $Magregar->addData("\t\t$"."this->response(array('status' => $"."e->getCode(),'error' => array('message' => $"."e->getMessage())), 200);");
+                $Magregar->addData("\t}");
+                $Magregar->addData("}");
             $Ccontroller->addMethod($Magregar);
 
             if (is_array($pks)) {
@@ -226,40 +232,74 @@ class PHPClassCreator {
 //#####
 //	METHOD $table->GetPluralName()."_get"
 //#####
-            $MgetAll = new PHPCodeMethod($table->GetPluralName() . "_get", array(), 1);
-            $MgetAll->addData("$" . "limit = ($" . "this->get('limit')) ? $" . "this->get('limit') : 10;");
-            $MgetAll->addData("$" . "offset = ($" . "this->get('offset')) ?  $" . "this->get('offset') : 0;");
-            $MgetAll->addData("$" . "colName =  ($" . "this->get('colName')) ? $" . "this->get('colName') : false;");
-            $MgetAll->addData("$" . "condition = ($" . "this->get('condition')) ? $" . "this->get('condition') : false;");
-            $MgetAll->addData("$" . "compare = ($" . "this->get('q')) ? $" . "this->get('q') : false;");
-            $joinText = '$this->db->select("*")->from("' . $table->name_table . '")';
-//$q = $this->db->select("*")->from("tbl_paciente")->join("tbl_persona","tbl_paciente.RUT = tbl_persona.RUT")->limit($limit)->offset($offset);
-            if (is_object($this->tableObject->constraints)) {
-                foreach ($this->tableObject->constraints->constraints as $constraint) {
-                    $joinText .= '->join("' . $constraint->references_table . '","' . $table->name_table . '.' . $constraint->foreign_key_column . ' = ' . $constraint->references_table . '.' . $constraint->references_column . '")';
+            $MgetAll = new PHPCodeMethod($table->GetPluralName()."_get",array(),1);
+                $MgetAll->addData("$"."limit = ($"."this->get('limit')) ? $"."this->get('limit') : 10;");
+                $MgetAll->addData("$"."offset = ($"."this->get('offset')) ?  $"."this->get('offset') : 0;");
+                $MgetAll->addData("$"."colName =  ($"."this->get('colName')) ? $"."this->get('colName') : false;");
+                $MgetAll->addData("$"."condition = ($"."this->get('condition')) ? $"."this->get('condition') : false;");
+                $MgetAll->addData("$"."compare = ($"."this->get('q')) ? $"."this->get('q') : false;");
+                $MgetAll->addData('$table = ($this->get("table")) ? $this->get("table") : false;');
+                $MgetAll->addData('$sortname = ($this->get("sortname")) ? $this->get("sortname") : false;');
+                $MgetAll->addData('$sortorder = ($this->get("sortorder")) ? $this->get("sortorder") : false;');
+
+                $joinText = '$this->db->select("*")->from("'.$table->name_table.'")';
+                //$q = $this->db->select("*")->from("tbl_paciente")->join("tbl_persona","tbl_paciente.RUT = tbl_persona.RUT")->limit($limit)->offset($offset);
+                if(is_object($this->tableObject->constraints)){
+                        foreach($this->tableObject->constraints->constraints as $constraint) {
+                                $joinText .= '->join("'.$constraint->references_table.'","'.$table->name_table.'.'.$constraint->foreign_key_column.' = '.$constraint->references_table.'.'.$constraint->references_column.'")';
+                        }
                 }
-            }
-            $joinText .= '->limit($limit)->offset($offset)';
-            $MgetAll->addData('$q = ' . $joinText . ';');
-//$MgetAll->addData("$"."q = Doctrine_Query::create()->select('*')->from('".$table->name_table."')->limit($"."limit)->offset($"."offset);");
-            $MgetAll->addData("if($" . "colName && $" . "condition && $" . "compare) {");
-            $MgetAll->addData("\t$" . "fullCondition = $" . "this->getConditionByName($" . "condition,$" . "colName,$" . "compare);");
-            $MgetAll->addData("\tif($" . "fullCondition) {");
-            $MgetAll->addData("\t\t$" . "q->where($" . "fullCondition);");
-            $MgetAll->addData("\t\t$" . "data = $" . "q->get()->result();");
-            $MgetAll->addData("\t\tif($" . "data) {");
-            $MgetAll->addData("\t\t\t$" . "this->response($" . "data, 200);");
-            $MgetAll->addData("\t\t} else {");
-            $MgetAll->addData("\t\t\t$" . "this->response(array('error' => 'Data could not be found'), 200);");
-            $MgetAll->addData("\t\t}");
-            $MgetAll->addData("\t}");
-            $MgetAll->addData("}");
-            $MgetAll->addData("$" . "data = $" . "q->get()->result();");
-            $MgetAll->addData("if($" . "data) {");
-            $MgetAll->addData("\t$" . "this->response($" . "data, 200);");
-            $MgetAll->addData("} else {");
-            $MgetAll->addData("\t$" . "this->response(array('error' => 'Data could not be found'), 200);");
-            $MgetAll->addData("}");
+                $MgetAll->addData('$q = '.$joinText.'->limit($limit)->offset($offset);');
+                $MgetAll->addData('if($sortname && $sortorder){ $q->order_by($sortname, $sortorder); }');
+
+                //$MgetAll->addData("$"."q = Doctrine_Query::create()->select('*')->from('".$table->name_table."')->limit($"."limit)->offset($"."offset);");
+                $MgetAll->addData("if($"."colName && $"."condition && $"."compare) {");
+                        $MgetAll->addData("\t$"."fullCondition = $"."this->getConditionByName($"."condition,$"."colName,$"."compare);");
+                        $MgetAll->addData("\tif($"."fullCondition) {");
+                                $MgetAll->addData("\t\t$"."q->where($"."fullCondition);");
+                                $MgetAll->addData("\t\t$"."data = $"."q->get()->result();");
+                                $MgetAll->addData($joinText.';');
+                                $MgetAll->addData('$total = $this->db->count_all_results();');
+                                $MgetAll->addData("\t\tif($"."data) {");
+                                        //
+                                        $MgetAll->addData('if($table){');
+                                        $MgetAll->addData('$result = array();');
+                                        $MgetAll->addData('foreach($data as $d){');
+                                                $MgetAll->addData('$values = array();');
+                                                $MgetAll->addData('foreach($d as $key =>$value){ $values[] = $value; }');
+                                                $MgetAll->addData('$result[] = array("id" => $d->RUT,"cell"=> array_values($values));');
+                                        $MgetAll->addData('}');
+                                                $MgetAll->addData('$this->response(array("page"=>1,"total"=>$total,"rows"=>$result), 200);');
+                                        $MgetAll->addData('} else {');
+                                                $MgetAll->addData('$this->response($data, 200);');
+                                        $MgetAll->addData('}');
+                                        //
+                                $MgetAll->addData("\t\t} else {");
+                                        $MgetAll->addData("\t\t\t$"."this->response(array('error' => 'Data could not be found'), 200);");
+                                $MgetAll->addData("\t\t}");
+                        $MgetAll->addData("\t}");
+                $MgetAll->addData("}");
+                $MgetAll->addData("$"."data = $"."q->get()->result();");
+                $MgetAll->addData($joinText.';');
+                $MgetAll->addData('$total = $this->db->count_all_results();');
+
+                $MgetAll->addData("if($"."data) {");
+                        //
+                        $MgetAll->addData('if($table){');
+                        $MgetAll->addData('$result = array();');
+                        $MgetAll->addData('foreach($data as $d){');
+                                $MgetAll->addData('$values = array();');
+                                $MgetAll->addData('foreach($d as $key =>$value){ $values[] = $value; }');
+                                $MgetAll->addData('$result[] = array("id" => $d->RUT,"cell"=> array_values($values));');
+                        $MgetAll->addData('}');
+                                $MgetAll->addData('$this->response(array("page"=>1,"total"=>$total,"rows"=>$result), 200);');
+                        $MgetAll->addData('} else {');
+                                $MgetAll->addData('$this->response($data, 200);');
+                        $MgetAll->addData('}');
+                        //
+                $MgetAll->addData("} else {");
+                        $MgetAll->addData("\t$"."this->response(array('error' => 'Data could not be found'), 200);");
+                $MgetAll->addData("}");
             $Ccontroller->addMethod($MgetAll);
 
             $zipfile->add_file($Ccontroller->__toString(), "ci/app/modules/RestServer/controllers/" . $className . "Controller.php");
