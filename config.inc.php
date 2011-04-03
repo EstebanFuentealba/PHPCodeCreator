@@ -1,16 +1,12 @@
 <?php
-
 //database server
-define('DB_SERVER', "localhost");
-
+define('DB_SERVER', "");
 //database login name
-define('DB_USER', "root");
+define('DB_USER', "");
 //database login password
-define('DB_PASS', "master");
-
+define('DB_PASS', "");
 //database name
-define('DB_DATABASE', "ci_doctrine");
-
+define('DB_DATABASE', "");
 //directorio
 define("APPDIR",dirname(__FILE__));
 ?>
