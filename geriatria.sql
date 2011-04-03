@@ -1,3 +1,4 @@
+## MYSQL Demo SQL Script
 drop database geriatria;
 create database geriatria;
 use geriatria;
@@ -208,15 +209,15 @@ alter table TBL_PACIENTE_PATOLOGIA add constraint FK_REFERENCE_9 foreign key (ID
 	  
 /* STEP */ 
 INSERT INTO tbl_step VALUES(null,'PROBLEMAS GERIATRICOS ACTUALES');
-INSERT INTO tbl_step VALUES(null,'EVALUACIÓN FUNCIONAL ACTIVIDADES DE LA VIDA DIARIA');
-INSERT INTO tbl_step VALUES(null,'EVALUACIÓN SOCIAL');
+INSERT INTO tbl_step VALUES(null,'EVALUACIï¿½N FUNCIONAL ACTIVIDADES DE LA VIDA DIARIA');
+INSERT INTO tbl_step VALUES(null,'EVALUACIï¿½N SOCIAL');
 /* tbl_tipo_encuesta */
 INSERT INTO tbl_tipo_encuesta VALUES(null,'General');
-INSERT INTO tbl_tipo_encuesta VALUES(null,'Evaluación nutricional');
-INSERT INTO tbl_tipo_encuesta VALUES(null,'Evaluación bucal');
-INSERT INTO tbl_tipo_encuesta VALUES(null,'Situación Familiar');
+INSERT INTO tbl_tipo_encuesta VALUES(null,'Evaluaciï¿½n nutricional');
+INSERT INTO tbl_tipo_encuesta VALUES(null,'Evaluaciï¿½n bucal');
+INSERT INTO tbl_tipo_encuesta VALUES(null,'Situaciï¿½n Familiar');
 INSERT INTO tbl_tipo_encuesta VALUES(null,'Unidad de Convivencia');
-INSERT INTO tbl_tipo_encuesta VALUES(null,'Situación Económica');
+INSERT INTO tbl_tipo_encuesta VALUES(null,'Situaciï¿½n Econï¿½mica');
 INSERT INTO tbl_tipo_encuesta VALUES(null,'Entorno Social');
 INSERT INTO tbl_tipo_encuesta VALUES(null,'Redes apoyo');
 /* */
@@ -229,16 +230,16 @@ INSERT INTO tbl_encuesta  VALUES(null,1,1,'Inmovilismo');
 INSERT INTO tbl_encuesta  VALUES(null,1,1,'incontinencia urinaria');
 INSERT INTO tbl_encuesta  VALUES(null,1,1,'incontinencia fecal');
 INSERT INTO tbl_encuesta  VALUES(null,1,1,'Irritabilidad colon');
-INSERT INTO tbl_encuesta  VALUES(null,1,1,'Úlceras por presión');
+INSERT INTO tbl_encuesta  VALUES(null,1,1,'ï¿½lceras por presiï¿½n');
 
-INSERT INTO tbl_encuesta  VALUES(null,1,2,'Desnutrición (IMC<24)');
-INSERT INTO tbl_encuesta  VALUES(null,1,2,'Eutrófico (IMC 24 -26,9)');
+INSERT INTO tbl_encuesta  VALUES(null,1,2,'Desnutriciï¿½n (IMC<24)');
+INSERT INTO tbl_encuesta  VALUES(null,1,2,'Eutrï¿½fico (IMC 24 -26,9)');
 INSERT INTO tbl_encuesta  VALUES(null,1,2,'Sobrepeso (IMC 27 -29,9)');
-INSERT INTO tbl_encuesta  VALUES(null,1,2,'Obesidad	(IMC 30 y más)');
+INSERT INTO tbl_encuesta  VALUES(null,1,2,'Obesidad	(IMC 30 y mï¿½s)');
 
-INSERT INTO tbl_encuesta  VALUES(null,1,3,'Dentición completa');
-INSERT INTO tbl_encuesta  VALUES(null,1,3,'Dentición parcial');
-INSERT INTO tbl_encuesta  VALUES(null,1,3,'Portador de prótesis');
+INSERT INTO tbl_encuesta  VALUES(null,1,3,'Denticiï¿½n completa');
+INSERT INTO tbl_encuesta  VALUES(null,1,3,'Denticiï¿½n parcial');
+INSERT INTO tbl_encuesta  VALUES(null,1,3,'Portador de prï¿½tesis');
 INSERT INTO tbl_encuesta  VALUES(null,1,3,'Desdentado');
 
 INSERT INTO tbl_encuesta  VALUES(null,3,4,'Soltero');
@@ -247,7 +248,7 @@ INSERT INTO tbl_encuesta  VALUES(null,3,4,'Divorciado/separado');
 INSERT INTO tbl_encuesta  VALUES(null,3,4,'Casado');
 INSERT INTO tbl_encuesta  VALUES(null,3,5,'Solo');
 INSERT INTO tbl_encuesta  VALUES(null,3,5,'Solo c/hijos');
-INSERT INTO tbl_encuesta  VALUES(null,3,5,'Pareja > 60 años y/o con incapacidad');
+INSERT INTO tbl_encuesta  VALUES(null,3,5,'Pareja > 60 aï¿½os y/o con incapacidad');
 INSERT INTO tbl_encuesta  VALUES(null,3,5,'Otros');
 INSERT INTO tbl_encuesta  VALUES(null,3,6,'Con ingreso');
 INSERT INTO tbl_encuesta  VALUES(null,3,6,'Sin ingreso');
