@@ -10,9 +10,11 @@ class PHPCode {
 
     public function getHeader() {
         return $this->getIdent() . "/*"
-        . $this->getIdent(1) . "@PHPClassCreator [Doctrine + CodeIgniter]"
+        . $this->getIdent(1) . "@PHPClassCreator [Doctrine + CodeIgniter + Rest Api]"
         . $this->getIdent(1) . "@Autor: Esteban Fuentealba"
         . $this->getIdent(1) . "@Email:	mi [dot] warezx [at] gmail [dot] com"
+        . $this->getIdent(1) . "@Collaborator: Octavio Fuenzalida"
+        . $this->getIdent(1) . "@Email: ofuenzalida@idati.cl"        
         . $this->getIdent() . "*/";
     }
 

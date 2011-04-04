@@ -501,7 +501,7 @@ class PHPClassCreator {
 ## MODEL Class
             $ModelPHPCode = "";
             $ModelPHPCode .= "<" . "?php\r\n";
-            $ModelPHPCode .= "/*\r\n\t@PHPClassCreator [Doctrine + CodeIgniter]\r\n\t@Autor: Esteban Fuentealba\r\n\t@Email:	mi [dot] warezx [at] gmail [dot] com\r\n*/\r\n";
+            $ModelPHPCode .= "/*\r\n\t@PHPClassCreator [Doctrine + CodeIgniter+ Rest Api]\r\n\t@Autor: Esteban Fuentealba\r\n\t@Email:	mi [dot] warezx [at] gmail [dot] com\r\n\t@Collaborator: Octavio Fuenzalida\r\n\t@Email: ofuenzalida@idati.cl\r\n*/\r\n";
             $ModelPHPCode .= "// models/" . $v['class']['name'] . ".php\r\n";
             $ModelPHPCode .= "class " . $v['class']['name'] . " extends Doctrine_Record {\r\n";
 ## setTableDefinition
@@ -529,7 +529,7 @@ class PHPClassCreator {
 ## CONTROLLER MODEL
             $ControllerPHPCode = "";
             $ControllerPHPCode .= "<" . "?php\r\n";
-            $ControllerPHPCode .= "/*\r\n\t@PHPClassCreator [Doctrine + CodeIgniter]\r\n\t@Autor: Esteban Fuentealba\r\n\t@Email:	mi [dot] warezx [at] gmail [dot] com\r\n*/\r\n";
+            $ControllerPHPCode .= "/*\r\n\t@PHPClassCreator [Doctrine + CodeIgniter + Rest Api]\r\n\t@Autor: Esteban Fuentealba\r\n\t@Email:	mi [dot] warezx [at] gmail [dot] com\r\n\t@Collaborator: Octavio Fuenzalida\r\n\t@Email: ofuenzalida@idati.cl\r\n*/\r\n";
             $ControllerPHPCode .= "// system/application/controllers/" . $v['class']['name'] . "Controller.php\r\n";
             $ControllerPHPCode .= "require_once(dirname(__FILE__) .'/KoalaController.class.php');\r\n";
             $ControllerPHPCode .= "class " . $v['class']['name'] . "Controller extends KoalaController {\r\n";
