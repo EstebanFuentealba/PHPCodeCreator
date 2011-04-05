@@ -14,9 +14,9 @@ define("APPDIR",dirname(__FILE__));<br>
 <b>DB_DATABASE</b> = Database name Ex.: geriatria<br>
 
 
-File: <b>ci/config/database.php</b><br>
-
 <b>How to use:</b><br>
-Example:<br>
-<a href="#">http://pi/PHPCodeCreator/asdf/public_html/RestServer/Tbl_encuestaController/tblsEncuestas.json?limit=1&colName=ID_ENCUESTA</a><br>
- <b>URL Project</b> / <b> Modules </b> /<b>Controllers</b> / <b>Function</b> . <b>Type</b> ? <b>Params</b>
+Examples:<br>
+<a href="#">http://localhost/PHPClassCreator/public_html/index.php/RestServer/Tbl_pacienteController/tblsPacientes.xml?condition=contains&colName=tbl_persona.nombres&q=Es&limit=5</a><br>
+<a href="#">http://localhost/PHPClassCreator/public_html/index.php/RestServer/Tbl_pacienteController/tblsPacientes.json?condition=contains&colName=tbl_persona.nombres&q=Es&limit=5</a><br>
+<a href="#">http://localhost/PHPClassCreator/public_html/index.php/RestServer/Tbl_pacienteController/tblsPacientes.jsonp?condition=contains&colName=tbl_persona.nombres&q=Es&limit=5&callback=test</a><br>
+<b>URL Project</b> / <b> Modules </b> /<b>Controllers</b> / <b>Function</b> . <b>Type</b> ? <b>Params</b>
