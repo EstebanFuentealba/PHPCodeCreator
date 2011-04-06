@@ -498,6 +498,7 @@ class PHPClassCreator {
 //echo $class->__toString();
             $zipfile->add_file($class->__toString(), "ci/app/modules/RestServer/models/" . $className . ".php");
         }
+        
         /* Agrega archivo json con todos los webservices Rest Disponibles */
         $zipfile->add_file(json_encode($webservice_list), "ci/app/modules/RestServer/controllers/list.json");
         header("Content-type: application/octet-stream");
