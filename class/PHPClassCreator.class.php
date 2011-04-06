@@ -183,7 +183,7 @@ class PHPClassCreator {
 
         /* End of file database.php */
         /* Location: ./application/config/database.php */';
-        /* Agrega Configuración de CodeIgniter */
+        /* Agrega Configuración de Database CodeIgniter */
         $zipfile->add_file($phpCIDatabaseConfig, "ci/app/config/database.php");
         
 
@@ -250,7 +250,7 @@ class PHPClassCreator {
 //echo $class;
         $zipfile->add_file($class->__toString(), "ci/app/modules/RestServer/controllers/KoalaController.class.php");
 
-
+        $webservice_list = array();
         foreach ($tables as $table) {
             $this->tableObject = $table;
             $pks = $table->GetPK();
@@ -260,6 +260,7 @@ class PHPClassCreator {
             /*
               Controller
              */
+            
             $Ccontroller = new PHPCodeClass($className . "Controller", array("KoalaController"), array("dirname(__FILE__) .'/KoalaController.class.php'"));
 //$Ccontroller->addAttribute("public $"."columns = ".$table->GetTypeColumns().";");
 //#####
@@ -407,7 +408,22 @@ class PHPClassCreator {
                         $MgetAll->addData("\t$"."this->response(array('error' => 'Data could not be found'), 200);");
                 $MgetAll->addData("}");
             $Ccontroller->addMethod($MgetAll);
-
+            
+            $webservice_list[] = array(
+                $className . "Controller" => array(
+                "addupdate"=>array(
+                    "method"=>"POST",
+                    "path"=> $className . "Controller/".$table->GetUnionName()
+                ),
+                "single"=>array(
+                    "method"=>"GET",
+                    "path"=> $className . "Controller/".$table->GetUnionName().".{FORMAT}?".$pks[0]."={PARAMETER}"
+                ),
+                "list"=>array(
+                    "method"=>"GET",
+                    "path"=> $className . "Controller/".$table->GetPluralName().".{FORMAT}"
+                )
+            ));
             $zipfile->add_file($Ccontroller->__toString(), "ci/app/modules/RestServer/controllers/" . $className . "Controller.php");
 //echo $Ccontroller;
 
@@ -482,6 +498,8 @@ class PHPClassCreator {
 //echo $class->__toString();
             $zipfile->add_file($class->__toString(), "ci/app/modules/RestServer/models/" . $className . ".php");
         }
+        /* Agrega archivo json con todos los webservices Rest Disponibles */
+        $zipfile->add_file(json_encode($webservice_list), "ci/app/modules/RestServer/controllers/list.json");
         header("Content-type: application/octet-stream");
         header("Content-disposition: attachment; filename=PHPClassCreator-" . time() . ".zip");
         echo $zipfile->file();
